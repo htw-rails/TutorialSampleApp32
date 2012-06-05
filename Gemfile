@@ -10,16 +10,16 @@ gem 'jquery-rails'
 
 # Database
 
-gem 'sqlite3'
+#gem 'sqlite3'
 
 # if it's still necessary to use postgres for heroku, use this:
-#group :development, :test do
-#  gem 'sqlite3' 
-#end
-#
-#group :production do
-#  gem 'pg'
-#end
+group :development, :test do
+  gem 'sqlite3' 
+end
+
+group :production do
+  gem 'pg'
+end
 
 group :development do
   gem 'faker'

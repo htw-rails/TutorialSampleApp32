@@ -13,9 +13,21 @@ Things to show in class
 ________________________
 
 Generate Sample Data with a rake task
+(Described in Section 9.3.2)
 http://ruby.railstutorial.org/chapters/updating-showing-and-deleting-users#sec:sample_users
 
 $ bundle exec rake db:reset
 $ bundle exec rake db:populate
-$ bundle exec rake db:test:prepare
+
+
+
+
+Walk throw running App
+
+Home Pages: shows all posts of followed users
+(not very clear, as they have been added in order)
+
+Heroku
+------
+http://ruby.railstutorial.org/chapters/beginning#sec:1.4.1
 
