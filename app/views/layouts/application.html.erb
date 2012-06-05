@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>TutorialSampleApp32</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title><%= title %></title>
+    <%= csrf_meta_tag %> <!-- at end of header in rails 3.2. -->
+    <%= render 'layouts/stylesheets' %>
+	<%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    </head>
+  <body>
+    <div class="container">
+      <%= render 'layouts/header' %>
+      <% flash.each do |key, value| %>
+      <!-- <div class="flash <%= key %>"><%= value %></div>
+	And just to demonstrate that this also works: -->
+          <%= content_tag(:div, value, :class => "flash #{key}") %>
+      <% end %>
+      <section class="round"><%= yield %></section>
+      <br />
+      <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+  </body>
 </html>
+
