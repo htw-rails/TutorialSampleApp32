@@ -21,6 +21,9 @@ gem 'sqlite3'
 #  gem 'pg'
 #end
 
+group :development do
+  gem 'faker'
+end
 
 group :test,:development do
   gem 'rspec-rails'
