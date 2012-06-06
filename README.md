@@ -29,5 +29,21 @@ Home Pages: shows all posts of followed users
 
 Heroku
 ------
-http://ruby.railstutorial.org/chapters/beginning#sec:1.4.1
+<http://ruby.railstutorial.org/chapters/beginning#sec:1.4.1>
 
+  gem install heroku
+  heroku keys:add
+  heroku create --stack cedar
+  git push heroku master
+  heroku run rake db:migrate
+  heroku open
+
+
+  heroku help
+  heroku db:push
+  heroku logs
+
+AJAX
+----
+http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html
+:remote => true
