@@ -11,9 +11,8 @@
 #
 
 class Micropost < ActiveRecord::Base
- # attr_writer :in_reply_to
   @@reply_to_regexp = /\A@([^\s]*)/
-  attr_accessible :content
+  attr_accessible :content, :in_reply_to_id
   belongs_to :user
   belongs_to :in_reply_to, class_name: "User"
     
@@ -40,6 +39,7 @@ class Micropost < ActiveRecord::Base
       if match = @@reply_to_regexp.match(content)
         user = User.find_by_shorthand(match[1])
         self.in_reply_to=user if user
+        self.content = "asdfs"
       end
     end
     
