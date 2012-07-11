@@ -264,5 +264,7 @@ describe User do
        user.should == @reply_to_user
      end
    end
-
+   describe "should scope replies to self" do
+     
+   end
 end

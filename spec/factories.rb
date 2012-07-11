@@ -19,6 +19,10 @@ FactoryGirl.define do
     micropost.content "bla bla bla"
     micropost.association :user
   end
+  factory :micropost_to_donald do |micropost|
+    micropost.content "@Donald_Duck bla bla bla"
+    micropost.association :user
+  end
 
   sequence :email do |n|
     "person-#{n}@example.com"

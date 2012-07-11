@@ -26,8 +26,8 @@ describe PagesController do
     describe "when signed in" do
 
       before(:each) do
-        @user = test_sign_in(Factory(:user))
-        other_user = Factory(:user, :email => Factory.next(:email))
+        @user = test_sign_in(FactoryGirl.create(:user))
+        other_user = FactoryGirl.create(:user, :email => FactoryGirl.generate(:email))
         other_user.follow!(@user)
       end
 
