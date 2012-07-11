@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Micropost do
 
   before(:each) do
-    @user = Factory(:user)
+    #FactoryGirl.create(:name) is deprecated; use FactoryGirl.create(:name)
+    @user = FactoryGirl.create(:user)
     @attr = { :content => "value for content" }
   end
 
@@ -45,8 +46,8 @@ describe Micropost do
 describe "from_users_followed_by" do
 
     before(:each) do
-      @other_user = Factory(:user, :email => Factory.next(:email))
-      @third_user = Factory(:user, :email => Factory.next(:email))
+      @other_user = FactoryGirl.create(:user, :email => FactoryGirl.generate(:email))
+      @third_user = FactoryGirl.create(:user, :email => FactoryGirl.generate(:email))
 
       @user_post  = @user.microposts.create!(:content => "foo")
       @other_post = @other_user.microposts.create!(:content => "bar")
@@ -74,7 +75,7 @@ describe "from_users_followed_by" do
   
   describe "replies" do
     before(:each) do
-      @reply_to_user = Factory(:userToReplyTo)
+      @reply_to_user = FactoryGirl.create(:userToReplyTo)
       @micropost = @user.microposts.create(content: "@Donald_Duck look a reply to Donald")
     end
     it "should identify a @user and set the in_reply_to field accordingly" do

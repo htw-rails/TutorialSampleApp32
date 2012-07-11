@@ -150,8 +150,8 @@ describe User do
 
     before(:each) do
       @user = User.create(@attr)
-      @mp1 = Factory(:micropost, :user => @user, :created_at => 1.day.ago)
-      @mp2 = Factory(:micropost, :user => @user, :created_at => 1.hour.ago)
+      @mp1 = FactoryGirl.create(:micropost, :user => @user, :created_at => 1.day.ago)
+      @mp2 = FactoryGirl.create(:micropost, :user => @user, :created_at => 1.hour.ago)
     end
 
     it "should have a microposts attribute" do
@@ -180,14 +180,14 @@ describe User do
       end
 
       it "should not include a different user's microposts" do
-        mp3 = Factory(:micropost,
-                      :user => Factory(:user, :email => Factory.next(:email)))
+        mp3 = FactoryGirl.create(:micropost,
+                      :user => FactoryGirl.create(:user, :email => FactoryGirl.generate(:email)))
         @user.feed.should_not include(mp3)
       end
 
       it "should include the microposts of followed users" do
-        followed = Factory(:user, :email => Factory.next(:email))
-        mp3 = Factory(:micropost, :user => followed)
+        followed = FactoryGirl.create(:user, :email => FactoryGirl.generate(:email))
+        mp3 = FactoryGirl.create(:micropost, :user => followed)
         @user.follow!(followed)
         @user.feed.should include(mp3)
       end
@@ -197,7 +197,7 @@ describe User do
   describe "relationships" do
     before(:each) do
       @user = User.create!(@attr)
-      @followed = Factory(:user)
+      @followed = FactoryGirl.create(:user)
     end
 
     it "should have a relationships method" do
@@ -250,8 +250,8 @@ describe User do
   
   describe "shorthand for replies" do
      before(:each) do
-       @reply_to_user = Factory(:userToReplyTo)
-       @user_with_strange_name = Factory(:user, email:Factory.next(:email), name: "Quack van Duck")
+       @reply_to_user = FactoryGirl.create(:userToReplyTo)
+       @user_with_strange_name = FactoryGirl.create(:user, email:FactoryGirl.generate(:email), name: "Quack van Duck")
      end
      it "should provide a Shorthand Username" do
        @reply_to_user.shorthand.should == "Donald_Duck"
