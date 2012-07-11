@@ -79,7 +79,7 @@ describe "from_users_followed_by" do
       @micropost = @user.microposts.create(content: "@Donald_Duck look a reply to Donald")
     end
     it "should identify a @user and set the in_reply_to field accordingly" do
-      @micropost.in_reply_to.should == @reply_to_user
+      @micropost.to.should == @reply_to_user
     end
     
   end

@@ -12,9 +12,9 @@
 
 class Micropost < ActiveRecord::Base
   @@reply_to_regexp = /\A@([^\s]*)/
-  attr_accessible :content, :in_reply_to_id
+  attr_accessible :content, :to, :in_reply_to_id
   belongs_to :user
-  belongs_to :in_reply_to, class_name: "User"
+  belongs_to :to, class_name: "User"
     
   default_scope :order => 'microposts.created_at DESC'
   before_save :extract_in_reply_to
@@ -38,8 +38,8 @@ class Micropost < ActiveRecord::Base
     def extract_in_reply_to
       if match = @@reply_to_regexp.match(content)
         user = User.find_by_shorthand(match[1])
-        self.in_reply_to=user if user
-        self.content = "asdfs"
+       # self.in_reply_to=user if user
+        self.to=user if user
       end
     end
     

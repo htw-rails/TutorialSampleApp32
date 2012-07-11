@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711203518) do
+ActiveRecord::Schema.define(:version => 20120711225900) do
 
   create_table "microposts", :force => true do |t|
     t.text     "content"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120711203518) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "in_reply_to_id"
+    t.integer  "to_id"
   end
 
   add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"

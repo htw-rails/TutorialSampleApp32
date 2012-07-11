@@ -248,8 +248,9 @@ describe User do
 
   end
   
-  describe "shorthand for replies" do
+  describe "handling replies" do
      before(:each) do
+       @user = User.create!(@attr)
        @reply_to_user = FactoryGirl.create(:userToReplyTo)
        @user_with_strange_name = FactoryGirl.create(:user, email:FactoryGirl.generate(:email), name: "Quack van Duck")
      end
@@ -263,8 +264,11 @@ describe User do
        user = User.find_by_shorthand("Donald_Duck")
        user.should == @reply_to_user
      end
-   end
-   describe "should scope replies to self" do
-     
-   end
+   
+     it "should scope replies to self" do
+        m = @user.microposts.create(content:"@Donald_Duck to donald")
+        m.to.should == @reply_to_user
+        @reply_to_user.replies.should == [m]    
+     end
+ end
 end

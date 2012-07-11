@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
                                     :class_name => "Relationship",
                                     :dependent => :destroy
    has_many :followers, :through => :reverse_relationships, :source => :follower
-   has_many :replies, foreign_key: "in_reply_to_id",
+   has_many :replies, foreign_key: "to_id",
                       class_name: "Micropost"
    validates :name, :presence => true , :length => { :maximum => 50 } 
   
