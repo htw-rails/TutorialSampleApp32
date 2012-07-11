@@ -20,7 +20,7 @@ class Micropost < ActiveRecord::Base
   before_save :extract_in_reply_to
  # Return microposts from the users being followed by the given user.
   scope :from_users_followed_by, lambda { |user| followed_by(user) }
-
+  scope :from_users_followed_by_including_replies, lambda { |user| followed_by_including_replies(user) }
 
   validates :content, :presence => true, :length => { :maximum => 140 }
   validates :user_id, :presence => true
@@ -33,6 +33,12 @@ class Micropost < ActiveRecord::Base
       followed_ids = %(SELECT followed_id FROM relationships
                        WHERE follower_id = :user_id)
       where("user_id IN (#{followed_ids}) OR user_id = :user_id",
+            { :user_id => user })
+    end
+    def self.followed_by_including_replies(user)
+      followed_ids = %(SELECT followed_id FROM relationships
+                       WHERE follower_id = :user_id)
+      where("user_id IN (#{followed_ids}) OR user_id = :user_id OR to_id = :user_id",
             { :user_id => user })
     end
     def extract_in_reply_to

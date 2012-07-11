@@ -49,7 +49,6 @@ class User < ActiveRecord::Base
    validates :password, :presence => true,
                        :confirmation => true,
                        :length => {:within => 6..40}
-   has_many :replies, foreign_key: "in_reply_to_id", class_name: "Micropost"
     
   before_save :encrypt_password
 
