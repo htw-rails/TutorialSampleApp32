@@ -13,6 +13,7 @@
 class Micropost < ActiveRecord::Base
   attr_accessible :content
   belongs_to :user
+  belongs_to :in_reply_to, class_name: "User"
     
   default_scope :order => 'microposts.created_at DESC'
 

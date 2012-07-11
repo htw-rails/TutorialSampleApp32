@@ -7,6 +7,13 @@ Factory.define :user do | user |
   user.password_confirmation "foobar"
 end
 
+Factory.define :userToReplyTo, class: User do | user |
+  user.name "Donald Duck"
+  user.email "donald@entenhausen.de"
+  user.password "foobar"
+  user.password_confirmation "foobar"
+end
+
 Factory.sequence :email do |n|
   "person-#{n}@example.com"
 end

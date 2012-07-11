@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
                                     :class_name => "Relationship",
                                     :dependent => :destroy
    has_many :followers, :through => :reverse_relationships, :source => :follower
-  
+   has_many :replies, foreign_key: "in_reply_to_id",
+                      class_name: "Micropost"
   validates :name, :presence => true , :length => { :maximum => 50 } 
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -48,7 +49,7 @@ class User < ActiveRecord::Base
   validates :password, :presence => true,
                        :confirmation => true,
                        :length => {:within => 6..40}
-   
+   has_many :replies, foreign_key: "in_reply_to_id", class_name: "Micropost"
     
    
  before_save :encrypt_password
@@ -85,6 +86,9 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(followed).destroy
   end
 
+  def shorthand
+    name.gsub(/\s*/,"")
+  end
 
  private 
     def encrypt_password

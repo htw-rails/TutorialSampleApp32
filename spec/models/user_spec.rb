@@ -247,7 +247,18 @@ describe User do
 
 
   end
-
-
+  
+  describe "shorthand for replies" do
+     before(:each) do
+       @reply_to_user = Factory(:userToReplyTo)
+       @user_with_strange_name = Factory(:user, email:Factory.next(:email), name: "Quack van Duck")
+     end
+     it "should provide a Shorthand Username" do
+       @reply_to_user.shorthand.should == "DonaldDuck"
+     end
+     it "should provide a Shorthand Username for names with 3 parts" do
+       @user_with_strange_name.shorthand.should == "QuackvanDuck"
+     end
+   end
 
 end

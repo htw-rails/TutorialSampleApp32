@@ -1,0 +1,1 @@
+1. create shorthand name function in user
