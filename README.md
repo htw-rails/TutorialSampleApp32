@@ -22,7 +22,7 @@ $ bundle exec rake db:populate
 
 
 
-Walk throw running App
+Walk thru running App
 
 Home Pages: shows all posts of followed users
 (not very clear, as they have been added in order)
