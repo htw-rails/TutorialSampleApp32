@@ -254,10 +254,14 @@ describe User do
        @user_with_strange_name = Factory(:user, email:Factory.next(:email), name: "Quack van Duck")
      end
      it "should provide a Shorthand Username" do
-       @reply_to_user.shorthand.should == "DonaldDuck"
+       @reply_to_user.shorthand.should == "Donald_Duck"
      end
      it "should provide a Shorthand Username for names with 3 parts" do
-       @user_with_strange_name.shorthand.should == "QuackvanDuck"
+       @user_with_strange_name.shorthand.should == "Quack_van_Duck"
+     end
+     it "should be findable by shorthand name" do
+       user = User.find_by_shorthand("Donald_Duck")
+       user.should == @reply_to_user
      end
    end
 

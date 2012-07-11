@@ -75,7 +75,7 @@ describe "from_users_followed_by" do
   describe "replies" do
     before(:each) do
       @reply_to_user = Factory(:userToReplyTo)
-      @micropost = @user.microposts.create(content: "@DonaldDuck look a reply to Donald")
+      @micropost = @user.microposts.create(content: "@Donald_Duck look a reply to Donald")
     end
     it "should identify a @user and set the in_reply_to field accordingly" do
       @micropost.in_reply_to.should == @reply_to_user

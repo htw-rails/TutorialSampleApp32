@@ -41,18 +41,17 @@ class User < ActiveRecord::Base
    has_many :followers, :through => :reverse_relationships, :source => :follower
    has_many :replies, foreign_key: "in_reply_to_id",
                       class_name: "Micropost"
-  validates :name, :presence => true , :length => { :maximum => 50 } 
+   validates :name, :presence => true , :length => { :maximum => 50 } 
   
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, :presence => true, :format => { :with => email_regex },
+   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+   validates :email, :presence => true, :format => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
-  validates :password, :presence => true,
+   validates :password, :presence => true,
                        :confirmation => true,
                        :length => {:within => 6..40}
    has_many :replies, foreign_key: "in_reply_to_id", class_name: "Micropost"
     
-   
- before_save :encrypt_password
+  before_save :encrypt_password
 
   def feed
     Micropost.from_users_followed_by(self)
@@ -87,7 +86,17 @@ class User < ActiveRecord::Base
   end
 
   def shorthand
-    name.gsub(/\s*/,"")
+   # name.gsub(/\s*/,"")
+   name.gsub(/ /,"_")
+  end
+  def self.shorthand_to_name(sh)
+   # name.gsub(/\s*/,"")
+   sh.gsub(/_/," ")
+  end
+  def self.find_by_shorthand(shorthand_name)
+    all = where(name: User.shorthand_to_name(shorthand_name))
+    return nil if all.empty?
+    all.first
   end
 
  private 
@@ -103,6 +112,7 @@ class User < ActiveRecord::Base
     end
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
-    end  
+    end 
+  
   
 end
