@@ -1,29 +1,4 @@
-# == Schema Information
-# Schema version: 20110323160849
-#
-# Table name: users
-#
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#  encrypted_password :string(255)
-#  salt               :string(255)
-#  admin              :boolean
-#
 
-# == Schema Information
-# Schema version: 20110305112815
-#
-# Table name: users
-#
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
 require 'digest'
 
 class User < ActiveRecord::Base
@@ -39,8 +14,7 @@ class User < ActiveRecord::Base
                                     :class_name => "Relationship",
                                     :dependent => :destroy
    has_many :followers, :through => :reverse_relationships, :source => :follower
-   has_many :replies, foreign_key: "to_id",
-                      class_name: "Micropost"
+   has_many :replies, foreign_key: "to_id", class_name: "Micropost"
    validates :name, :presence => true , :length => { :maximum => 50 } 
   
    email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
